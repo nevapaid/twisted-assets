@@ -19,26 +19,6 @@
   
   * { margin: 0; padding: 0; box-sizing: border-box; }
   
-  #aboutBlankButton {
-  padding: 40px 80px;       /* Makes it big */
-  font-size: 32px;          /* Large text */
-  font-weight: bold;
-  background-color: #4CAF50; /* Green */
-  color: white;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
-  display: block;           /* Make sure it’s on its own line */
-  margin: 50px auto;        /* Center it horizontally */
-}
-
-#aboutBlankButton:hover {
-  background-color: #45a049;
-  transform: scale(1.05);
-}
-
-/* Special styling for chat messages from "sunibun" */
 .chat-message.sunibun {
   background: linear-gradient(90deg, rgba(0,0,0,0.85), rgba(255,255,255,0.12));
 
@@ -1517,16 +1497,7 @@ body {
   </style>
 </head>
 <body>
-<body>
-
-  <!-- Other content of your page -->
-
-  <button id="aboutBlankButton">Open Blank Tab</button>
-
-  <!-- Other content of your page -->
-</body>
-
-
+  
   <!-- Loading Overlay -->
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loader"></div>
@@ -1850,11 +1821,6 @@ body {
   </div>
 
   <script>
-    
-
-
-
-
 // ========== CONFIGURATION ==========
 // Assign a unique class or color/banner for each special user
 const SPECIAL_USER_GIFS = {
@@ -2922,34 +2888,5 @@ function saveChatSettings() {
       }
     };
   </script>
-  
-<script>
-document.getElementById('aboutBlankButton').addEventListener('click', function() {
-  const newTab = window.open('about:blank', '_blank'); // Open a blank tab
-
-  // Copy your current document's HTML into the new tab
-  newTab.document.write(`
-    <html>
-      <head>
-        <title>Your Website</title>
-        <style>
-          ${Array.from(document.styleSheets)
-            .map(sheet => {
-              try { return Array.from(sheet.cssRules).map(rule => rule.cssText).join(' '); } 
-              catch(e){ return ''; }
-            }).join(' ')}
-        </style>
-      </head>
-      <body>
-        ${document.body.innerHTML}
-      </body>
-    </html>
-  `);
-  newTab.document.close();
-});
-</script>
-
-</body>
-
 </body>
 </html>
