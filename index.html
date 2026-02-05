@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study.com | Home</title>
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/nevapaid/twisted-assets/logo.png" type="image/png">
+
+  <link rel="stylesheet" href="/css/style.css">
+   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+   
+<!-- Firebase v8 (REQUIRED for your code) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+</head>
+<body>
+  <canvas id="starCanvas"></canvas>
+
+<div id="loading-screen">
+    <div class="spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <p id="loading-text"></p>
+    <div id="loading-bar">
+        <div id="loading-bar-fill"></div>
+        <button id="skip-loading">Skip</button>
+    </div>
+</div>
+
+
+
+
+
+<div id="header">
+  <!-- Logo / Home -->
+  <img class="headericons logo" 
+       src="https://cdn.jsdelivr.net/gh/nevapaid/twisted-assets/logo.png" 
+       onclick="window.location.href='https://twisted.surge.sh';"
+       title="Home">
+
+  <!-- Right nav icons -->
+  <div class="right">
+    <img class="headericons nav-icon" 
+         src="https://global.freetls.fastly.net/stuff/icons/calc.svg" 
+         onclick="window.location.href='/math/math.html';" title="Math">
+    <img class="headericons nav-icon" 
+         src="https://global.freetls.fastly.net/stuff/icons/plus-solid.svg" 
+         onclick="window.location.href='/public/suggestion.html';" title="Suggestion">
+    <img class="headericons nav-icon" 
+         src="https://cdn.jsdelivr.net/gh/nevapaid/twisted-assets/chat3.png" 
+         onclick="window.location.href='/public/chat.html';" title="Chat">
+    <img class="headericons nav-icon" 
+         src="https://global.freetls.fastly.net/stuff/icons/settings.png" 
+         onclick="window.location.href='/public/settings.html';" title="Settings">
+  </div>
+</div>
+
+
+
+
+
+
+
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Home Page Content -->
+    <div class="page active" id="page-home">
+      <h1 class="home-title">twisted's arcade v4</h1>
+      <p class="home-subtitle">inspired by frogiesarcade | don't abuse chat you WILL get mutted</p>
+  
+      <a class="discord-btn" href="https://discord.gg/rKuch4azCU" target="_blank">Join our Discord Server</a>
+      
+      <div style="text-align: center; margin-top: 20px;">
+        <a class="privacy-link" href="/dmca/privacy.html" style="color: #b5b5b5; text-decoration: none; font-weight: 1000; display: inline-block; margin-bottom: 8px; transition: color 0.2s ease;" onmouseover="this.style.color='#54ff9b';" onmouseout="this.style.color='#b5b5b5';">Privacy Policy</a>
+        <br>
+        <a class="terms-link" href="/dmca/tos.html" style="color: #b5b5b5; text-decoration: none; font-weight: 1000; display: inline-block; margin-top: 8px; transition: color 0.2s ease;" onmouseover="this.style.color='#54ff9b';" onmouseout="this.style.color='#b5b5b5';">Terms of Service</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/firebase.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/loading.js"></script>
+  <script src="/js/stars.js"></script>
+  
+<script>
+  // --- Force refresh everyone ---
+  function setupForceRefresh() {
+    const db = firebase.database();
+
+    const SITE_VERSION = "1"; // change this whenever you deploy a new version
+
+    // Listen for the latest site version
+    db.ref('latestVersion').on('value', snapshot => {
+      const latest = snapshot.val();
+      if (latest && latest !== SITE_VERSION) {
+        location.reload(true); // force reload from server
+      }
+    });
+
+    // Optional: global force refresh toggle
+    db.ref('forceRefresh').on('value', snapshot => {
+      if (snapshot.val() === true) location.reload(true);
+    });
+  }
+
+  // --- Run everything after window loads ---
+  window.onload = () => {
+    startLoading();
+    checkUsername();
+    initFirebase();
+    setupForceRefresh(); // <-- run force refresh listener
+  }
+</script>
+</body>
+</html>
